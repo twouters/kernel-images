@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux
-pkgver=6.12.arch1
+pkgver=6.12.9.arch1
 pkgrel=2
 pkgdesc='Linux'
 url='https://github.com/archlinux/linux'
@@ -35,11 +35,7 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   $url/releases/download/$_srctag/linux-$_srctag.patch.zst{,.sig}
   config  # the main kernel config file
-  20241031_stanislaw_gruszka_media_intel_ipu6_do_not_handle_interrupts_when_device_is_disabled.patch
-  20241106_hdegoede_mei_vsc_do_not_re_enable_interrupt_from_vsc_tp_reset.patch
-  20241108_hdegoede_mei_vsc_improve_error_logging_in_vsc_identify_silicon.patch
-  v4_20241112_stanislaw_gruszka_usb_misc_ljca_move_usb_autopm_put_interface_after_wait_for_response.patch
-  20241122_stanislaw_gruszka_spi_fix_acpi_deferred_irq_probe.patch
+  vsc-tp-toggle-reset.patch
 )
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
@@ -47,26 +43,18 @@ validpgpkeys=(
   83BC8889351B5DEBBB68416EB8AC08600F108CDF  # Jan Alexander Steffens (heftig)
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('b1a2562be56e42afb3f8489d4c2a7ac472ac23098f1ef1c1e40da601f54625eb'
+sha256sums=('87be0360df0931b340d2bac35161a548070fbc3a8c352c49e21e96666c26aeb4'
             'SKIP'
-            '01ec2cb2dfa8877a900420076c06f58956f9fa1f570e5e7057d20c3f0fe9fc67'
+            'f57e541d26eb3971b3e587d418825c50612d75684f5ad6dd36b8084846751b5a'
             'SKIP'
             'ded6cabb59f50327234aa46d84dcfb3ffdc5621eb71ef763f21c69a034a921de'
-            '84cfaf19d1e43a041a236b6889d5790c4cb1a87abab3fb855c030c15bf561994'
-            'c77aea6adc9db1b251cdd7fb95cac89203ab2ea03bd17df230861e2415b4d76b'
-            '2f27f98ef06ba34951ef8235d0269bc6ef5644dc8ae38470eaa3a6e4d869aee0'
-            '4f0e4bd03d59e4548437a154a9c0c4cf3bc257bce30da8f060a89762d8f638f9'
-            'bf2d92356411250316870bb58ba48e1e6f3c1b4a1317b244439d8371b1709331')
-b2sums=('b2ec2fc69218cacabbbe49f78384a5d259ca581b717617c12b000b16f4a4c59ee348ea886b37147f5f70fb9a7a01c1e2c8f19021078f6b23f5bc62d1c48d5e5e'
+            '8f8ed071f4632600a9e9df9cf1cd52b78eaafcb03c0b5842936736b899173d5d')
+b2sums=('2584e35822a429b6825bf8d99c073848d5ba83d45b382ab82d1caa36ccbf2529036b31d4687dafb29650c87f4b63489caa2cb67a85d05183c572dcad75a35ba8'
         'SKIP'
-        '5e9bc2bb11b5af108e1b821afaeb0103220b2615d125a0942a23415dbd3fabebbee389012852688351d78f05e00d4ab43ad13af94115c15b82d56398af7f3fbb'
+        '195386c83893d88d4198ddd208f4c71e1264d8f48aef50006e42581cdf6ebe441ca67a9b93bf7ed84b7580dd0b591a3ef7a06d7ee4d6ffef8486fa4962220214'
         'SKIP'
         '4e18288c251d640403e23697162308c9529c7d9574ea14c846f49224eebd034de30a96509b020afdcd3269d35e058b02eb5b289c7aaf1873bd2294282311acd6'
-        '99e0940d6ff7337c2b6f34d10f11d419404649834235cd05bc2c78403a861acc109fd5fe4c2053c03cfeabbd9e3cd9f3ac7317df96e44545f9e43d4c98499fb8'
-        '5a188937ef29274c75db157c624da0de2e0fb7c5c1370b63c342df2fb242ca90e408795c8797b22d6789d9a0ace45d2332cf9777fdc974be2a9921c0dd769b9e'
-        '668fd9fa6a75ce0ad43675b87bb5eff78d3602ac12d186d653cf2d61a2aeb9bda989c46d9800fed2659aee552fdc63042fd064072496c9304c3a9258f491976b'
-        '85511be8db51c807a6b9923bd201e5e159c04c4523bdcef0bd933dd6f97c46edc483b984f0a3243b2f04686aca35dc675dd6821176164c3453a497bf5da8397c'
-        '2e00fe7eaeefa7a5d7da8ee1c7ef2247de2879725e0ac08e26037fea1f1de6d0d89a036919ee0ad2f7bda0b6c5926662a1c6850da4ea6ab8a8a44e4b65db8e91')
+        '70ddc9dbe340f5b8922f222cd271f3d7c629fe7096fb03f0c62cb6e76e4e9cfc3a7ab3866cfdcd8cdd15d1827544c3a011ed9b8f470603866da1cbcea1275ff7')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase

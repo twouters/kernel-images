@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux
-pkgver=6.12.9.arch1
-pkgrel=2
+pkgver=6.13.3.arch1
+pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/archlinux/linux'
 arch=(x86_64)
@@ -35,7 +35,7 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   $url/releases/download/$_srctag/linux-$_srctag.patch.zst{,.sig}
   config  # the main kernel config file
-  vsc-tp-toggle-reset.patch
+  20250214_hdegoede_mei_vsc_use_wakeuphostint_when_getting_the_host_wakeup_gpio.patch
 )
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
@@ -43,18 +43,18 @@ validpgpkeys=(
   83BC8889351B5DEBBB68416EB8AC08600F108CDF  # Jan Alexander Steffens (heftig)
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('87be0360df0931b340d2bac35161a548070fbc3a8c352c49e21e96666c26aeb4'
+sha256sums=('da33fb15ed2628aaaa8b7870b5f29dec794b2134a6da5208149d0e14e3cac02c'
             'SKIP'
-            'f57e541d26eb3971b3e587d418825c50612d75684f5ad6dd36b8084846751b5a'
+            '4749a2e656e579d8d4efcb439aef930de0bacd9d053729b26df4e5c26d253b21'
             'SKIP'
-            'ded6cabb59f50327234aa46d84dcfb3ffdc5621eb71ef763f21c69a034a921de'
-            '8f8ed071f4632600a9e9df9cf1cd52b78eaafcb03c0b5842936736b899173d5d')
-b2sums=('2584e35822a429b6825bf8d99c073848d5ba83d45b382ab82d1caa36ccbf2529036b31d4687dafb29650c87f4b63489caa2cb67a85d05183c572dcad75a35ba8'
+            'a8c319f6f81d42d21c708fa2b4b016b0318908b63c31e21e679507f879d2606c'
+            '8a05737712dd871bdacc3baf862927ba609b421d43348cc06b450b41213ac2cc')
+b2sums=('8a182d351be1da05c577bdf3e384a0211d0064908d68ef25f392f758fb58d9f5b053e094be594f187d72fa4211e1a6fd7eee05d963a74826f31a0ab1432f294d'
         'SKIP'
-        '195386c83893d88d4198ddd208f4c71e1264d8f48aef50006e42581cdf6ebe441ca67a9b93bf7ed84b7580dd0b591a3ef7a06d7ee4d6ffef8486fa4962220214'
+        '75277d5b44effa31163309531b2b34ec3d003d30a3731c74ec62691553e41cd1d964305d5f4a141dfe6e203b339f532f42d60346f1d8dac62522d6eebf15bc9b'
         'SKIP'
-        '4e18288c251d640403e23697162308c9529c7d9574ea14c846f49224eebd034de30a96509b020afdcd3269d35e058b02eb5b289c7aaf1873bd2294282311acd6'
-        '70ddc9dbe340f5b8922f222cd271f3d7c629fe7096fb03f0c62cb6e76e4e9cfc3a7ab3866cfdcd8cdd15d1827544c3a011ed9b8f470603866da1cbcea1275ff7')
+        '77741908fa7afe101091919c8d477f1c4c161082f115849e352a99a080fe3d599e9d8af78d8c210f81176f34a331aa639883723e230c3bf29621f0cf36fa962d'
+        '6fb5b4d301156dd8e76baf44e3820a8040bea5d0c05c8366b0e807ec67b190ec7c4fe939a7c90013915afe45bd4bf3551c44d85962e95d3aeb4f0ce1382b1c78')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -101,9 +101,9 @@ _package() {
     kmod
   )
   optdepends=(
-    'wireless-regdb: to set the correct wireless channels of your country'
     'linux-firmware: firmware images needed for some devices'
     'scx-scheds: to use sched-ext schedulers'
+    'wireless-regdb: to set the correct wireless channels of your country'
   )
   provides=(
     KSMBD-MODULE
